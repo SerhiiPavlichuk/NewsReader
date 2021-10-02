@@ -16,4 +16,10 @@ struct Constants {
         static let topNewForCountry = "top-headlines?country=us&apiKey="
       
     }
+    
+    struct UI {
+        
+        static let favoriteAnimation = "like"
+
+    }
 }

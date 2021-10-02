@@ -9,6 +9,7 @@ target 'NewsReader' do
 
 pod 'Alamofire'
 pod 'SDWebImage'
+pod 'RealmSwift'
 
   target 'NewsReaderTests' do
     inherit! :search_paths
