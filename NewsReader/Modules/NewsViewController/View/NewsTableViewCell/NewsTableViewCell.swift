@@ -18,13 +18,14 @@ class NewsTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var autorLabel: UILabel!
     @IBOutlet weak var sourceLabel: UILabel!
-    @IBOutlet weak var readLaterButton: UIButton!
+//    @IBOutlet weak var readLaterButton: UIButton!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         self.view.layer.cornerRadius = 24
+        self.selectionStyle = .none
         
 //        readLaterButton.addTarget(self, action: #selector(saveNewsButtonPressed), for: .touchUpInside)
 /*        the button is implemented in a different place, so as not to waste time, I went further, I will return later.
@@ -41,9 +42,8 @@ class NewsTableViewCell: UITableViewCell {
     }
 //    @objc func saveNewsButtonPressed(){
 //
-//        self.viewModel.saveNewsRealm(self.viewModel.newsforRealm, completion: {
-//
-//
-//           })
+//    self.viewModel.saveNewsRealm(self.viewModel.news[indexPath.row], completion: {
+//         
+//                  })
 //       }
 }

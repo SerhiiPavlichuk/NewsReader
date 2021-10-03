@@ -7,17 +7,35 @@
 
 import UIKit
 import WebKit
+import Alamofire
 
 class NewsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var viewModel: NewsViewModel = NewsViewModel()
+    
+    var myRefreshControl: UIRefreshControl {
+    let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(sender: )), for: .valueChanged)
+        return refreshControl
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.refreshControl = myRefreshControl
         setupTableView()
+        searchBar.delegate = self
+    }
+    
+    @objc private func refresh(sender: UIRefreshControl) {
+        
+        self.viewModel.loadTopNews(completion: {
+                  self.tableView.reloadData()
+              })
+        sender.endRefreshing()
     }
     
     func setupTableView() {
@@ -33,6 +51,22 @@ class NewsViewController: UIViewController {
 }
 
 extension NewsViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let favorite = UIContextualAction(style: .normal, title: "Favorite") { action, view, completionHandler in
+            
+            self.viewModel.saveNewsRealm(self.viewModel.news[indexPath.row], completion: {
+        
+                 })
+            
+            completionHandler(true)
+        }
+        
+        favorite.image = UIImage(systemName: "suit.heart.fill")
+        favorite.backgroundColor = .orange
+        let swipe = UISwipeActionsConfiguration(actions: [favorite])
+        return swipe
+    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 500
@@ -76,3 +110,18 @@ extension NewsViewController: UITableViewDelegate {
     }
 }
 
+extension NewsViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let news = searchBar.text else { return }
+        self.viewModel.loadSearchResult(newsSearch: news, completion: {
+            self.view.endEditing(true)
+            self.tableView.reloadData()
+        })
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        searchBar.resignFirstResponder()
+        tableView.reloadData()
+    }
+}

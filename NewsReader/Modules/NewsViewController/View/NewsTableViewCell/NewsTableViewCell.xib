@@ -66,21 +66,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RA6-Q3-npn">
-                                <rect key="frame" x="194" y="368" width="94" height="52"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="RA6-Q3-npn" secondAttribute="height" multiplier="85:47" id="UDS-xD-OWB"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="Read Later"/>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                         <constraints>
                             <constraint firstItem="Yf7-uv-wGv" firstAttribute="leading" secondItem="JpN-hd-FUU" secondAttribute="leading" constant="50" id="4n3-ww-eqG"/>
                             <constraint firstAttribute="bottom" secondItem="Et8-Eb-0ey" secondAttribute="bottom" constant="183" id="9hw-Uk-ESt"/>
                             <constraint firstItem="QZ7-Yj-mIk" firstAttribute="centerX" secondItem="t9Q-de-nbR" secondAttribute="centerX" id="Bys-ES-7yV"/>
-                            <constraint firstAttribute="trailing" secondItem="RA6-Q3-npn" secondAttribute="trailing" constant="8" id="E1V-iV-fbh"/>
                             <constraint firstItem="EbQ-mp-AfP" firstAttribute="top" secondItem="Yf7-uv-wGv" secondAttribute="bottom" constant="8" symbolic="YES" id="Ihr-g1-zPs"/>
                             <constraint firstItem="EbQ-mp-AfP" firstAttribute="leading" secondItem="JpN-hd-FUU" secondAttribute="leading" id="Jan-ZQ-Tlx"/>
                             <constraint firstItem="Yf7-uv-wGv" firstAttribute="top" secondItem="JpN-hd-FUU" secondAttribute="top" constant="4" id="KF4-Xo-KWv"/>
@@ -90,7 +81,6 @@
                             <constraint firstItem="Uor-OD-Khs" firstAttribute="leading" secondItem="JpN-hd-FUU" secondAttribute="leading" constant="8" id="S5f-2c-dms"/>
                             <constraint firstAttribute="trailing" secondItem="Yf7-uv-wGv" secondAttribute="trailing" constant="50" id="WTF-Mc-CjH"/>
                             <constraint firstAttribute="trailing" secondItem="Uor-OD-Khs" secondAttribute="trailing" constant="14" id="cDS-EL-VIT"/>
-                            <constraint firstAttribute="bottom" secondItem="RA6-Q3-npn" secondAttribute="bottom" constant="8" id="evj-hf-iWM"/>
                             <constraint firstAttribute="trailing" secondItem="EbQ-mp-AfP" secondAttribute="trailing" id="jXC-5O-07r"/>
                             <constraint firstItem="t9Q-de-nbR" firstAttribute="leading" secondItem="JpN-hd-FUU" secondAttribute="leading" constant="70" id="oue-BB-P1u"/>
                             <constraint firstItem="QZ7-Yj-mIk" firstAttribute="top" secondItem="t9Q-de-nbR" secondAttribute="bottom" constant="7" id="phM-Ri-A1Y"/>
@@ -113,7 +103,6 @@
                 <outlet property="descriptionLabel" destination="Uor-OD-Khs" id="zpO-HY-dSx"/>
                 <outlet property="newsImageView" destination="EbQ-mp-AfP" id="rs2-Bs-4qt"/>
                 <outlet property="newsNameLabel" destination="Yf7-uv-wGv" id="cGV-M2-cGL"/>
-                <outlet property="readLaterButton" destination="RA6-Q3-npn" id="uKq-nR-4WA"/>
                 <outlet property="sourceLabel" destination="vwh-7h-TPd" id="1aX-Qu-gDb"/>
                 <outlet property="view" destination="JpN-hd-FUU" id="tcj-5i-Vas"/>
             </connections>

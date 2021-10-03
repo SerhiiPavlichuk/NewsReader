@@ -10,14 +10,6 @@ import Foundation
 class OpenNewsInWebViewModel  {
     
     var news: News? = nil
-    
-    func saveNewsRealm(_ news: News?, completion: @escaping(() -> ())) {
-        
-        guard let news = news else {
-           
-            return
-        }
-        
-        DataManager.shared.saveNews(news, completion: completion)
-    }
+    var newsRealm: NewsRealm? = nil
+
 }

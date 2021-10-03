@@ -30,7 +30,7 @@ struct DataManager {
         }
         completion()
     }
-    func getAllMeals(completion: ([News])->()) {
+    func getAllNews(completion: ([News])->()) {
         
         var newsRealm = [NewsRealm]()
         guard let newsResult = realm?.objects(NewsRealm.self) else { return }

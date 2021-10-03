@@ -22,26 +22,26 @@ class OpenNewsInWebViewController: UIViewController, WKUIDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
- 
+        
+        setupBoolForWebViewFromRealm()
+        setupBoolForWebView()
+        
+    }
+    
+    func setupBoolForWebViewFromRealm() {
+        guard let url = viewModel.newsRealm?.url else { return }
+        let newsFromRealm = URL(string: url)
+        let loadSavedNews = URLRequest(url: newsFromRealm!)
+        webView.load(loadSavedNews)
+        
+    }
+    
+    func setupBoolForWebView() {
         guard let url = viewModel.news?.url else { return }
-            let newsUrl = URL(string: url)
+        let newsUrl = URL(string: url)
         let myRequest = URLRequest(url: newsUrl!)
         webView.load(myRequest)
         
-        setupFavoriteButtonUI()
-  
     }
-    func setupFavoriteButtonUI() {
-        let addToFavoriteButtonPressed = UIBarButtonItem(barButtonSystemItem: .save , target: self, action: #selector(addToFavoriteButtonPressed))
-            self.navigationItem.rightBarButtonItem = addToFavoriteButtonPressed
-        }
-    
-    @objc func addToFavoriteButtonPressed (){
-        
-        self.viewModel.saveNewsRealm(self.viewModel.news, completion: {
 
-           
-          
-        })
-    }
 }

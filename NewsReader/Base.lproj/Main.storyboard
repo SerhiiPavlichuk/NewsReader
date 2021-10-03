@@ -24,7 +24,42 @@
             </objects>
             <point key="canvasLocation" x="-910" y="84"/>
         </scene>
-        <!--Item-->
+        <!--Read Later-->
+        <scene sceneID="hTj-MM-V1s">
+            <objects>
+                <viewController storyboardIdentifier="ReadLaterViewController" id="rdd-gf-ZKt" customClass="ReadLaterViewController" customModule="NewsReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BX8-St-LIc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jeP-ha-mTC">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="rdd-gf-ZKt" id="4hp-HV-ifa"/>
+                                    <outlet property="delegate" destination="rdd-gf-ZKt" id="rDO-Cb-B0L"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="2Gx-Qi-amm"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="jeP-ha-mTC" firstAttribute="trailing" secondItem="2Gx-Qi-amm" secondAttribute="trailing" id="Wxj-L3-o1w"/>
+                            <constraint firstItem="jeP-ha-mTC" firstAttribute="top" secondItem="BX8-St-LIc" secondAttribute="top" id="nCX-Kc-LZR"/>
+                            <constraint firstItem="jeP-ha-mTC" firstAttribute="leading" secondItem="2Gx-Qi-amm" secondAttribute="leading" id="ug6-12-bJ2"/>
+                            <constraint firstAttribute="bottom" secondItem="jeP-ha-mTC" secondAttribute="bottom" id="z0N-2R-ONW"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Read Later" image="clock" catalog="system" id="0OM-ZZ-PkF"/>
+                    <connections>
+                        <outlet property="tableView" destination="jeP-ha-mTC" id="mdo-HY-IPA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EX5-2S-2Px" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="702.89855072463774" y="-577.23214285714278"/>
+        </scene>
+        <!--Top News-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="NewsViewController" customModule="NewsReader" customModuleProvider="target" sceneMemberID="viewController">
@@ -33,32 +68,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="R2F-ca-xXe">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="132" width="414" height="764"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="ijf-xT-6Y0"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="glE-u7-h4K"/>
                                 </connections>
                             </tableView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2la-Bi-UBq">
+                                <rect key="frame" x="0.0" y="88" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="AO0-Xj-EN9"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="R2F-ca-xXe" secondAttribute="bottom" id="Flh-k4-CJU"/>
                             <constraint firstItem="R2F-ca-xXe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Gk5-Vs-f4h"/>
-                            <constraint firstItem="R2F-ca-xXe" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="UiO-9o-egX"/>
+                            <constraint firstItem="R2F-ca-xXe" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="132" id="UiO-9o-egX"/>
                             <constraint firstItem="R2F-ca-xXe" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="iwo-90-Pug"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Hgm-hJ-Zso"/>
+                    <tabBarItem key="tabBarItem" title="Top News" image="newspaper" catalog="system" id="Hgm-hJ-Zso"/>
                     <navigationItem key="navigationItem" id="qU3-kS-5Wc"/>
                     <connections>
+                        <outlet property="searchBar" destination="2la-Bi-UBq" id="inE-P4-mth"/>
                         <outlet property="tableView" destination="R2F-ca-xXe" id="pva-cv-9sf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="704" y="84"/>
+            <point key="canvasLocation" x="702.89855072463774" y="83.705357142857139"/>
         </scene>
         <!--Open News In Web View Controller-->
         <scene sceneID="S9F-R4-mdP">
@@ -87,6 +131,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="oUd-XY-81c"/>
+                        <segue destination="rdd-gf-ZKt" kind="relationship" relationship="viewControllers" id="8O7-8d-5de"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zHz-Br-dvV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -95,6 +140,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="clock" catalog="system" width="128" height="121"/>
+        <image name="newspaper" catalog="system" width="128" height="111"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
