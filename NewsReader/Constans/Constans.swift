@@ -16,6 +16,7 @@ struct Constants {
         static let topHeadlines = "top-headlines?"
         static let topNewForCountry = "country=us"
         static let search = "everything?"
+        static let category = "category"
       
     }
     

@@ -10,7 +10,7 @@ import SDWebImage
 
 class NewsTableViewCell: UITableViewCell {
     
-    var viewModel: NewsViewModel = NewsViewModel()
+//    var viewModel: NewsViewModel = NewsViewModel()
     
     @IBOutlet weak var view: UIView!
     @IBOutlet var newsImageView: UIImageView!

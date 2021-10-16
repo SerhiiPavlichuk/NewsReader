@@ -16,13 +16,21 @@ struct NetworkManager {
         
         let url = Constants.NewsNetwork.baseNewsPath + Constants.NewsNetwork.topHeadlines + Constants.NewsNetwork.topNewForCountry + Constants.NewsNetwork.apiKey
         
-        AF.request(url).responseJSON { responce in
-            let decoder = JSONDecoder()
-            if let data = try? decoder.decode(PopularNewsResult.self, from: responce.data!) {
-                let newsList = data.news ?? []
-                completion(newsList)
-            }
-        }
+        AF.request(url)
+          .validate()
+          .responseDecodable(of: PopularNewsResult.self) { (response) in
+              guard let news = response.value else { return }
+              let  newsList = news.news ?? []
+              completion(newsList)
+          }
+        
+//        AF.request(url).responseJSON { responce in
+//            let decoder = JSONDecoder()
+//            if let data = try? decoder.decode(PopularNewsResult.self, from: responce.data!) {
+//                let newsList = data.news ?? []
+//                completion(newsList)
+//            }
+//        }
     }
     
     func searchNews(for newsSearch: String, completion: @escaping(([News]?) -> ())) {
@@ -37,5 +45,6 @@ struct NetworkManager {
             }
         }
     }
+
 }
     

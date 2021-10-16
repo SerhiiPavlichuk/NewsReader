@@ -11,6 +11,8 @@ pod 'Alamofire'
 pod 'SDWebImage'
 pod 'RealmSwift'
 
+
+
   target 'NewsReaderTests' do
     inherit! :search_paths
     # Pods for testing
