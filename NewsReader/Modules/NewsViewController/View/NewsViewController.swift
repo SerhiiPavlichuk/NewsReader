@@ -7,47 +7,62 @@
 
 import UIKit
 import WebKit
-import Alamofire
 
 class NewsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var newsSegmentedControl: UISegmentedControl!
     
     var viewModel: NewsViewModel = NewsViewModel()
     
-    var myRefreshControl: UIRefreshControl {
-    let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh(sender: )), for: .valueChanged)
-        return refreshControl
-    }
+    //    var myRefreshControl: UIRefreshControl {
+    //    let refreshControl = UIRefreshControl()
+    //        refreshControl.addTarget(self, action: #selector(refresh(sender: )), for: .valueChanged)
+    //        return refreshControl
+    //    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.refreshControl = myRefreshControl
+        //        tableView.refreshControl = myRefreshControl
         setupTableView()
         searchBar.delegate = self
     }
     
-    @objc private func refresh(sender: UIRefreshControl) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        self.viewModel.loadTopNews(completion: {
-                  self.tableView.reloadData()
-              })
-        sender.endRefreshing()
+        
+        self.viewModel.loadTopUsNews(completion: {
+            self.tableView.reloadData()
+        })
+        
+        self.viewModel.loadTopUaNews(completion: {
+            self.tableView.reloadData()
+        })
+        
+        self.viewModel.loadTopRuNews(completion: {
+            self.tableView.reloadData()
+        })
     }
-    
+    //    @objc private func refresh(sender: UIRefreshControl) {
+    //
+    //        self.viewModel.loadTopUsNews(completion: {
+    //                  self.tableView.reloadData()
+    //              })
+    //        sender.endRefreshing()
+    //    }
+    //
     func setupTableView() {
         
         let newsTableViewCellIdentifier = String(describing: NewsTableViewCell.self)
         self.tableView.register(UINib(nibName: newsTableViewCellIdentifier, bundle: nil),
                                 forCellReuseIdentifier: newsTableViewCellIdentifier)
-        self.viewModel.loadTopNews(completion: {
+        self.viewModel.loadTopUsNews(completion: {
             self.tableView.reloadData()
         })
     }
-    
 }
 
 extension NewsViewController: UITableViewDataSource {
@@ -55,10 +70,9 @@ extension NewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let favorite = UIContextualAction(style: .normal, title: "Favorite") { action, view, completionHandler in
             
-            self.viewModel.saveNewsRealm(self.viewModel.news[indexPath.row], completion: {
-        
-                 })
-            
+            self.viewModel.saveNewsRealm(self.viewModel.usNews[indexPath.row], completion: {
+                
+            })
             completionHandler(true)
         }
         
@@ -73,25 +87,79 @@ extension NewsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.news.count
+        let selectedIndex = self.newsSegmentedControl.selectedSegmentIndex
+        switch selectedIndex
+        {
+        case 0:
+            return self.viewModel.usNews.count
+        case 1:
+            return self.viewModel.uaNews.count
+        case 2:
+            return self.viewModel.ruNews.count
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cellIdentifier = String(describing: NewsTableViewCell.self)
-        let newsCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! NewsTableViewCell
-        
-        let newsInfo = self.viewModel.news[indexPath.row]
-        
-        if let imagePath = newsInfo.urlToImage {
-            let newsImageUrl = imagePath
-            newsCell.newsConfigureWith(imageURL: URL(string: newsImageUrl),
-                                       newsName: newsInfo.title, description: newsInfo.description, autor: newsInfo.author, source: newsInfo.source?.name)
+        let selectedIndex = self.newsSegmentedControl.selectedSegmentIndex
+        switch selectedIndex {
+            
+        case 0:
+            
+            let cellIdentifier = String(describing: NewsTableViewCell.self)
+            let newsCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! NewsTableViewCell
+            
+            let newsMedia = self.viewModel.usNews[indexPath.row]
+            
+            if let imagePath = newsMedia.urlToImage {
+                let newsImageUrl = imagePath
+                newsCell.newsConfigureWith(imageURL: URL(string: newsImageUrl),
+                                           newsName: newsMedia.title, description: newsMedia.description,
+                                           autor: newsMedia.author, source: newsMedia.source?.name )
+            }
+            
+            return newsCell
+            
+        case 1:
+            
+            let cellIdentifier = String(describing: NewsTableViewCell.self)
+            let newsCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! NewsTableViewCell
+            
+            let newsMedia = self.viewModel.uaNews[indexPath.row]
+            
+            if let imagePath = newsMedia.urlToImage {
+                let newsImageUrl = imagePath
+                newsCell.newsConfigureWith(imageURL: URL(string: newsImageUrl),
+                                           newsName: newsMedia.title, description: newsMedia.description,
+                                           autor: newsMedia.author, source: newsMedia.source?.name )
+            }
+            
+            return newsCell
+            
+        case 2:
+            
+            let cellIdentifier = String(describing: NewsTableViewCell.self)
+            let newsCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! NewsTableViewCell
+            
+            let newsMedia = self.viewModel.ruNews[indexPath.row]
+            
+            if let imagePath = newsMedia.urlToImage {
+                let newsImageUrl = imagePath
+                newsCell.newsConfigureWith(imageURL: URL(string: newsImageUrl),
+                                           newsName: newsMedia.title, description: newsMedia.description,
+                                           autor: newsMedia.author, source: newsMedia.source?.name )
+            }
+            
+            return newsCell
+        default:
+            return UITableViewCell()
         }
-        
-        return newsCell
     }
-    
+    @IBAction func newsSegmentedChanged(_ sender: UISegmentedControl) {
+        self.tableView.reloadData()
+    }
 }
 
 extension NewsViewController: UITableViewDelegate {
@@ -103,7 +171,7 @@ extension NewsViewController: UITableViewDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let openNewsViewController = storyboard.instantiateViewController(identifier: identifier) as? OpenNewsInWebViewController {
             
-            openNewsViewController.viewModel.news = self.viewModel.news[indexPath.row]
+            openNewsViewController.viewModel.news = self.viewModel.usNews[indexPath.row]
             
             self.navigationController?.pushViewController(openNewsViewController, animated: true)
         }
@@ -118,7 +186,7 @@ extension NewsViewController: UISearchBarDelegate {
             self.tableView.reloadData()
         })
     }
-
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = nil
         searchBar.resignFirstResponder()

@@ -12,31 +12,49 @@ struct NetworkManager {
     
     static let shared = NetworkManager()
     
-    func requestTopCounryNews(completion: @escaping(([News]) -> ())){
+    func requestTopCounryNewsUs(completion: @escaping(([News]) -> ())){
         
-        let url = Constants.NewsNetwork.baseNewsPath + Constants.NewsNetwork.topHeadlines + Constants.NewsNetwork.topNewForCountry + Constants.NewsNetwork.apiKey
+        let url = Constants.NewsNetwork.baseNewsPath + Constants.NewsNetwork.topHeadlines + Constants.NewsNetwork.topNewForCountryUs + Constants.NewsNetwork.apiKey
         
         AF.request(url)
-          .validate()
-          .responseDecodable(of: PopularNewsResult.self) { (response) in
-              guard let news = response.value else { return }
-              let  newsList = news.news ?? []
-              completion(newsList)
-          }
+            .validate()
+            .responseDecodable(of: PopularNewsResult.self) { (response) in
+                guard let news = response.value else { return }
+                let  newsList = news.news ?? []
+                completion(newsList)
+            }
+    }
+    
+    func requestTopCounryNewsUa(completion: @escaping(([News]) -> ())){
         
-//        AF.request(url).responseJSON { responce in
-//            let decoder = JSONDecoder()
-//            if let data = try? decoder.decode(PopularNewsResult.self, from: responce.data!) {
-//                let newsList = data.news ?? []
-//                completion(newsList)
-//            }
-//        }
+        let url = Constants.NewsNetwork.baseNewsPath + Constants.NewsNetwork.topHeadlines + Constants.NewsNetwork.topNewForCountryUa + Constants.NewsNetwork.apiKey
+        
+        AF.request(url)
+            .validate()
+            .responseDecodable(of: PopularNewsResult.self) { (response) in
+                guard let news = response.value else { return }
+                let  newsList = news.news ?? []
+                completion(newsList)
+            }
+    }
+    
+    func requestTopCounryNewsRu(completion: @escaping(([News]) -> ())){
+        
+        let url = Constants.NewsNetwork.baseNewsPath + Constants.NewsNetwork.topHeadlines + Constants.NewsNetwork.topNewForCountryRu + Constants.NewsNetwork.apiKey
+        
+        AF.request(url)
+            .validate()
+            .responseDecodable(of: PopularNewsResult.self) { (response) in
+                guard let news = response.value else { return }
+                let  newsList = news.news ?? []
+                completion(newsList)
+            }
     }
     
     func searchNews(for newsSearch: String, completion: @escaping(([News]?) -> ())) {
-
+        
         let url = Constants.NewsNetwork.baseNewsPath + Constants.NewsNetwork.search + "q=\(newsSearch)" + Constants.NewsNetwork.apiKey
-
+        
         AF.request(url).responseJSON { responce in
             let decoder = JSONDecoder()
             if let data = try? decoder.decode(PopularNewsResult.self, from: responce.data!) {
@@ -45,6 +63,5 @@ struct NetworkManager {
             }
         }
     }
-
 }
-    
+

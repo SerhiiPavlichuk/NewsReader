@@ -14,7 +14,9 @@ struct Constants {
         static let apiKey = "&apiKey=1fec75c1e9d4443594e6c477efd84d02"
         static let baseNewsPath = "https://newsapi.org/v2/"
         static let topHeadlines = "top-headlines?"
-        static let topNewForCountry = "country=us"
+        static let topNewForCountryUs = "country=us"
+        static let topNewForCountryUa = "country=ua"
+        static let topNewForCountryRu = "country=ru"
         static let search = "everything?"
         static let category = "category"
       

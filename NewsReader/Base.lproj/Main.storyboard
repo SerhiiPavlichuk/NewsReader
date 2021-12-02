@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Yrv-wy-uet">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Yrv-wy-uet">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -68,34 +68,57 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="R2F-ca-xXe">
-                                <rect key="frame" x="0.0" y="132" width="414" height="764"/>
+                                <rect key="frame" x="0.0" y="162" width="414" height="734"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="bqr-5D-cAZ"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="fB5-Nb-45A"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="2la-Bi-UBq">
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="2la-Bi-UBq">
                                 <rect key="frame" x="0.0" y="88" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="vkL-Wy-rtQ"/>
+                                </constraints>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="AO0-Xj-EN9"/>
                                 </connections>
                             </searchBar>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3eZ-df-JhL">
+                                <rect key="frame" x="20" y="132" width="374" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="gr0-42-ZEZ"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="USNews"/>
+                                    <segment title="UANews"/>
+                                    <segment title="RUNews"/>
+                                </segments>
+                                <connections>
+                                    <action selector="newsSegmentedChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="giH-8L-Z7E"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="R2F-ca-xXe" firstAttribute="top" secondItem="3eZ-df-JhL" secondAttribute="bottom" id="90m-hi-jNw"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3eZ-df-JhL" secondAttribute="trailing" constant="20" id="DMB-Tx-e16"/>
+                            <constraint firstItem="2la-Bi-UBq" firstAttribute="leading" secondItem="R2F-ca-xXe" secondAttribute="leading" id="DeO-lp-ABY"/>
                             <constraint firstAttribute="bottom" secondItem="R2F-ca-xXe" secondAttribute="bottom" id="Flh-k4-CJU"/>
                             <constraint firstItem="R2F-ca-xXe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Gk5-Vs-f4h"/>
-                            <constraint firstItem="R2F-ca-xXe" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="132" id="UiO-9o-egX"/>
+                            <constraint firstItem="3eZ-df-JhL" firstAttribute="top" secondItem="2la-Bi-UBq" secondAttribute="bottom" symbolic="YES" id="UD1-Q8-fxM"/>
+                            <constraint firstItem="2la-Bi-UBq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="VO3-2R-eRH"/>
+                            <constraint firstItem="2la-Bi-UBq" firstAttribute="trailing" secondItem="R2F-ca-xXe" secondAttribute="trailing" id="Vez-Qa-spZ"/>
                             <constraint firstItem="R2F-ca-xXe" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="iwo-90-Pug"/>
+                            <constraint firstItem="3eZ-df-JhL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="qT1-JK-o95"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Top News" image="newspaper" catalog="system" id="Hgm-hJ-Zso"/>
                     <navigationItem key="navigationItem" id="qU3-kS-5Wc"/>
                     <connections>
+                        <outlet property="newsSegmentedControl" destination="3eZ-df-JhL" id="Wah-e5-Nki"/>
                         <outlet property="searchBar" destination="2la-Bi-UBq" id="inE-P4-mth"/>
                         <outlet property="tableView" destination="R2F-ca-xXe" id="KNj-DL-G67"/>
                     </connections>

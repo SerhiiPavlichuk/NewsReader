@@ -9,25 +9,42 @@ import Foundation
 
 class NewsViewModel {
     
-    var news: [News] = []
-
+    var usNews: [News] = []
+    var uaNews: [News] = []
+    var ruNews: [News] = []
     
-    func loadTopNews(completion: @escaping(() -> ())) {
-         NetworkManager.shared.requestTopCounryNews(completion: { news in
-             self.news = news
-             completion()
-         })
+    
+    func loadTopUsNews(completion: @escaping(() -> ())) {
+        NetworkManager.shared.requestTopCounryNewsUs(completion: { news in
+            self.usNews = news
+            completion()
+        })
     }
+    
+    func loadTopUaNews(completion: @escaping(() -> ())) {
+        NetworkManager.shared.requestTopCounryNewsUa(completion: { news in
+            self.uaNews = news
+            completion()
+        })
+    }
+    
+    func loadTopRuNews(completion: @escaping(() -> ())) {
+        NetworkManager.shared.requestTopCounryNewsRu(completion: { news in
+            self.ruNews = news
+            completion()
+        })
+    }
+    
     func saveNewsRealm(_ news: News, completion: @escaping(() -> ())) {
-
-         
-         DataManager.shared.saveNews(news, completion: completion)
-     }
-
-       func loadSearchResult(newsSearch: String, completion: @escaping(() -> ())) {
-           NetworkManager.shared.searchNews(for: newsSearch, completion: { newsResult in
-               self.news = newsResult ?? []
-               completion()
-           })
-       }
+        
+        
+        DataManager.shared.saveNews(news, completion: completion)
+    }
+    
+    func loadSearchResult(newsSearch: String, completion: @escaping(() -> ())) {
+        NetworkManager.shared.searchNews(for: newsSearch, completion: { newsResult in
+            self.usNews = newsResult ?? []
+            completion()
+        })
+    }
 }
