@@ -14,11 +14,11 @@ class ReadLaterViewModel {
     var news: [NewsRealm] = []
     
     func getNews() -> [NewsRealm] {
-        
-        var news = [NewsRealm]()
-        guard let newsResult = realm?.objects(NewsRealm.self) else { return [] }
-        for item in newsResult {
-            news.append(item)
+//
+//        var news = [NewsRealm]()
+//        guard let newsResult = realm?.objects(NewsRealm.self) else { return [] }
+//        for item in newsResult {
+//            news.append(item)
         }
         return news
     }
